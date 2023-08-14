@@ -1,0 +1,15 @@
+*.bbl
+*.blg
+*.aux
+*.bcf
+*.fdb*
+*.fls
+*.log
+*.out
+*.pdf
+*.xml
+*.synctex*
+*.eps
+.vscode
+AO4ELT_Proceeding*
+report.bib
