@@ -301,74 +301,90 @@ The complete control model of the NGAO Observing Mode of the GMT is given in Fig
 \section{NGAO INTEGRATED MODEL COMPUTING FRAMEWORKS}
 \label{sec:framework}
 
-{Model Dimensioning}
+\subsection{Programming \& Computing Challenges}
+\label{sec:pc-challenge}
+
+Building a NGAO integrated model for an extremely large telescope like the GMT presents unique software programming and computing challenges.
+
+The dimensions of the model in terms of
 \begin{itemize}
    \item degrees of freedom: $10^4$~modes, $10^4$~inputs \& $10^4$~outputs
    \item temporal sampling: $10^4$Hz
    \item science exposure: $10^3$s
 \end{itemize}
-
-{Multirate Concurrent System}
+leads to a dynamic model with millions of iterations where thousands of parameters are updated at each time step.
+The model must also account for the multirate e.g.
 \begin{itemize}
-   \item multirate
+   \item 8kHz for structural model \& ASMS
+   \item 100Hz for M1 control system
+   \item 1kHz for Pyramid WFS
+   \item 10Hz for Piston Sensor (HDFS)
+\end{itemize}
+and concurrent e.g.
+\begin{itemize}
+   \item segments (14) control system are independent
+   \item actuators (M1 \& M2) run in parallel
+\end{itemize}
+nature of the telescope control system.
+
+\subsection{Computing Framework Design}
+\label{sec:framework-design}
+
+From the considerations in the section above, the design of the integrated model
+went through 4 stages:
+\begin{itemize}
+   \item Guiding Principle:
          \begin{itemize}
-            \item 8kHz for structural model \& ASMS
-            \item 100Hz for M1 control system
-            \item 1kHz for Pyramid WFS
-            \item 10Hz for Piston Sensor (HDFS)
+            \item low runtime, parallelizable
+            \item scalable \& deployable at scale
          \end{itemize}
-   \item concurrent
+   \item Specifications:
          \begin{itemize}
-            \item segments (14) control system are independent
-            \item actuators (M1 \& M2) run in parallel
+            \item compiled language, async/thread API
+            \item project tooling \& open source
+         \end{itemize}
+   \item Design:
+         \begin{itemize}
+            \item asynchronous, concurrent
+                  \& distributed system
+         \end{itemize}
+   \item Solution \& Implementation:
+         \begin{itemize}
+            \item actors model
+            \item Rust language
          \end{itemize}
 \end{itemize}
 
-Design
-
-   {Tenets}
-\begin{itemize}
-   \item low runtime, parallelizable
-   \item scalable \& deployable at scale
-\end{itemize}
-{Design}
-\begin{itemize}
-   \item asynchronous, concurrent
-         \& distributed system
-\end{itemize}
-{Specifications}
-\begin{itemize}
-   \item compiled language, async/thread API
-   \item project tooling \& open source
-\end{itemize}
-{Solution \& Implementation}
-\begin{itemize}
-   \item actors model
-   \item Rust language
-\end{itemize}
-
-\subsection{GMT NGAO Integrated Model}
+\subsection{GMT NGAO Integrated Modeling}
 \label{sec:gmt-ngao-im}
 
+The final design of the integrated model computing framework implements the actors design pattern where
 \begin{itemize}
-   \item every block is an \emph{actor} interfacing with a \emph{client} i.e. a model (structural, optical, control, ...)
-   \item actors run \emph{asynchronously} and communicate by \emph{exchanging} tagged \emph{data}
-   \item actors \emph{synchronisation and sequencing} is the results of the actors \emph{network topology}
+   \item every block is an \emph{actor} interfacing with a \emph{client} i.e. a model (structural, optical, control, ...),
+   \item actors run \emph{asynchronously} and communicate by \emph{exchanging} tagged \emph{data},
+   \item actors \emph{synchronisation and sequencing} is the results of the actors \emph{network topology}.
 \end{itemize}
+
+Fig.~\ref{fig:16a} is an implementation of the Adaptive Optics block diagram of Fig.~\ref{fig:3} using the integrated model computing framework in the context of the GMT NGAO Observing mode.
+Adding to the actors model of Fig.~\ref{fig:16a}, the structural dynamic model of the telescope and the control systems of the mount, M1 and M2 leads
+to the new model depicted in Fig.~\ref{fig:16b}.
+
 
 \begin{figure}
    \centering
-   \includegraphics[width=0.6\linewidth]{NGAO.dot.png}
+   \includegraphics[width=0.8\linewidth]{NGAO.dot.png}
    \caption{NGAO Model with Atmospheric Turbulence.}
-   \label{fig:16}
+   \label{fig:16a}
 \end{figure}
 
 \begin{figure}
    \centering
    \includegraphics[width=\linewidth]{ngao-opm.2pi.png}
    \caption{Wind \& Turbulence (Atmosphere \& Dome Deeing) Loaded NGAO Integrated Model.}
-   \label{fig:17}
+   \label{fig:16b}
 \end{figure}
+
+\clearpage
 
 \subsection{GMT Design Validation for NGAO Observations}
 \label{sec:gmt-ngao-vv}
@@ -407,13 +423,23 @@ These simulations are re-done each time a design update (structural, control, ..
 
 \begin{figure}
    \centering
-   \begin{tabular}{c}
-      \includegraphics[width=0.65\linewidth]{wfe-rms_el90.png} \\
-      \includegraphics[width=0.65\linewidth]{wfe-rms_el60.png} \\
-      \includegraphics[width=0.65\linewidth]{wfe-rms_el30.png}
-   \end{tabular}
-   \caption{Wavefront Error RMS as a function of wind speed, GMT elevation \& enclosure settings.}
-   \label{fig:18}
+      \includegraphics[width=0.5\linewidth]{wfe-rms_el90.png}
+   \caption{Wavefront Error RMS as a function of wind speed and enclosure settings for 90deg GMT elevation.}
+   \label{fig:18a}
+\end{figure}
+
+\begin{figure}
+   \centering
+      \includegraphics[width=0.5\linewidth]{wfe-rms_el60.png} 
+   \caption{Wavefront Error RMS as a function of wind speed and enclosure settings for 60deg GMT elevation.}
+   \label{fig:18b}
+\end{figure}
+
+\begin{figure}
+   \centering
+      \includegraphics[width=0.5\linewidth]{wfe-rms_el30.png}
+   \caption{Wavefront Error RMS as a function of wind speed and enclosure settings for 30deg GMT elevation.}
+   \label{fig:18c}
 \end{figure}
 
 \clearpage
