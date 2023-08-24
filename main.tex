@@ -389,9 +389,11 @@ to the new model depicted in Fig.~\ref{fig:16b}.
 \subsection{GMT Design Validation for NGAO Observations}
 \label{sec:gmt-ngao-vv}
 
+An application of the GMT NGAO Integrated Model is the compliance analysis of the NGAO optical performance with respect to the requirements under atmospheric turbulence, dome seeing and wind loads perturbations.
+Using the CFD model described in Sec.~\ref{sec:cfd}, 60 CFD simulations were performed for
 \begin{itemize}
    \item 4 wind speeds: 2m/s, 7m/s, 12m/s \& 17m/s
-   \item 3 elevations
+   \item 3 telescope elevations
          \begin{tabular}{ccc}
             90deg                                                             & 60deg & 30deg \\
             \includegraphics[width=0.2\linewidth]{zen00az000_OS7_tel_tr.png}  &
@@ -409,9 +411,10 @@ to the new model depicted in Fig.~\ref{fig:16b}.
                                                                           & \includegraphics[width=0.2\linewidth]{zen30az000_OS7_tr.png} &
             \includegraphics[width=0.2\linewidth]{zen30az000_CD12_tr.png} &
             \includegraphics[width=0.2\linewidth]{zen60az000_CS17_tr.png}
-         \end{tabular}
+         \end{tabular}.
 \end{itemize}
-
+Each simulation provides time series of dome seeing wavefront map in the telescope exit pupil and of forces and moments at various locations on the telescope structure.
+For this compliance analysis, we are considering only the upwind cases reducing the set of CFD cases to 12 (Fig.~\ref{fig:17}).
 \begin{figure}
    \centering
    \includegraphics[width=\linewidth]{cfd_cases_tr.dot.png}
@@ -419,25 +422,30 @@ to the new model depicted in Fig.~\ref{fig:16b}.
    \label{fig:17}
 \end{figure}
 
+The results of the 12 integrated modeling NGAO simulations are given in Figures~\ref{fig:18a}, \ref{fig:18b} and \ref{fig:18c}.
+Each simulation is repeated 3 times, with the atmospheric turbulence only, with both atmospheric turbulence and dome seeing and with atmospheric turbulence, dome seeing and wind loads.
+Each figure corresponds to a different telescope elevation and shows the WFE RMS as a function of wind speed.
+The blue and orange areas highlights different enclosure configurations.
+The lower bound of the areas marks the WFE RMS with atmospheric turbulence only and the upper bound marks the requirement value (only visible in Fig.~\ref{fig:18c}).
 These simulations are re-done each time a design update (structural, control, ...) occurs.
 
 \begin{figure}
    \centering
-      \includegraphics[width=0.5\linewidth]{wfe-rms_el90.png}
+   \includegraphics[width=0.5\linewidth]{wfe-rms_el90.png}
    \caption{Wavefront Error RMS as a function of wind speed and enclosure settings for 90deg GMT elevation.}
    \label{fig:18a}
 \end{figure}
 
 \begin{figure}
    \centering
-      \includegraphics[width=0.5\linewidth]{wfe-rms_el60.png} 
+   \includegraphics[width=0.5\linewidth]{wfe-rms_el60.png}
    \caption{Wavefront Error RMS as a function of wind speed and enclosure settings for 60deg GMT elevation.}
    \label{fig:18b}
 \end{figure}
 
 \begin{figure}
    \centering
-      \includegraphics[width=0.5\linewidth]{wfe-rms_el30.png}
+   \includegraphics[width=0.5\linewidth]{wfe-rms_el30.png}
    \caption{Wavefront Error RMS as a function of wind speed and enclosure settings for 30deg GMT elevation.}
    \label{fig:18c}
 \end{figure}
