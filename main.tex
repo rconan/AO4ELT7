@@ -133,7 +133,7 @@ to the exit pupil leads to the dome seeing wavefront error map (Fig.~\ref{fig:8b
 
 \begin{figure}
    \centering
-   \includegraphics[width=0.7\linewidth]{cfd-thermal_models.png}
+   \includegraphics[width=0.8\linewidth]{cfd-thermal_models.png}
    \caption{GMT CFD \& Thermal models.}
    \label{fig:5}
 \end{figure}
@@ -195,11 +195,11 @@ where
 
 An example of a bi-modal structural dynamic model is given in Fig.~\ref{fig:90}.
 In practice, a structural system is made of thousands of modes as shown in the transfer function of the mount (Fig.~\ref{fig:9}).
-This leads to the presence a multiple resonance frequencies in the system.
+This leads to the presence of multiple resonance frequencies in the system.
 The mechanical structure then acts like a resonator where vibration sources may couple to some resonant eigen modes.
 
-\subsubsection{Structural Model Frequency Responses}
-\label{sec:fem-frequency}
+% \subsubsection{Structural Model Frequency Responses}
+% \label{sec:fem-frequency}
 
 \begin{figure}
    \centering
@@ -209,36 +209,36 @@ The mechanical structure then acts like a resonator where vibration sources may 
    \label{fig:9}
 \end{figure}
 
-\subsubsection{Control Structure Interactions}
-\label{sec:fem-csi}
+% \subsubsection{Control Structure Interactions}
+% \label{sec:fem-csi}
 
-\begin{itemize}
-   \item \emph{ASM dynamics model} (P. Thompson (GMT) \& M. Manetti (Adoptica)) including \emph{fluid damping}
-   \item \emph{voice coils position} to \emph{thin shell figure} MIMO ($675\times 675$) transfer function
-\end{itemize}
-\begin{itemize}
-   \item projection of symptomatic eigen mode onto Karhunen-Loeve (KL) basis
-   \item KL to KL SISO transfer function
-\end{itemize}
+% \begin{itemize}
+%    \item \emph{ASM dynamics model} (P. Thompson (GMT) \& M. Manetti (Adoptica)) including \emph{fluid damping}
+%    \item \emph{voice coils position} to \emph{thin shell figure} MIMO ($675\times 675$) transfer function
+% \end{itemize}
+% \begin{itemize}
+%    \item projection of symptomatic eigen mode onto Karhunen-Loeve (KL) basis
+%    \item KL to KL SISO transfer function
+% \end{itemize}
 
-\begin{itemize}
-   \item \emph{ASM dynamics model} (P. Thompson (GMT) \& M. Manetti (Adoptica)) including \emph{fluid damping}
-   \item \emph{voice coils position} to \emph{thin shell figure} MIMO ($675\times 675$) transfer function
-\end{itemize}
+% \begin{itemize}
+%    \item \emph{ASM dynamics model} (P. Thompson (GMT) \& M. Manetti (Adoptica)) including \emph{fluid damping}
+%    \item \emph{voice coils position} to \emph{thin shell figure} MIMO ($675\times 675$) transfer function
+% \end{itemize}
 
-\begin{figure}
-   \centering
-   \includegraphics[width=0.6\linewidth]{asm-mimo-svd.png}
-   \caption{GMT ASM Zonal MIMO (Multi-Input Multi-Ouput) Transfer Function singular values as a function of frequencies.}
-   \label{fig:10}
-\end{figure}
+% \begin{figure}
+%    \centering
+%    \includegraphics[width=0.6\linewidth]{asm-mimo-svd.png}
+%    \caption{GMT ASM Zonal MIMO (Multi-Input Multi-Ouput) Transfer Function singular values as a function of frequencies.}
+%    \label{fig:10}
+% \end{figure}
 
-\begin{figure}
-   \centering
-   \includegraphics[trim=3cm 0 0 3cm,clip,width=0.6\linewidth]{defocusNicholsLTF.png}
-   \caption{Nichols plot of focus mode versus damping $\zeta$.}
-   \label{fig:11}
-\end{figure}
+% \begin{figure}
+%    \centering
+%    \includegraphics[trim=3cm 0 0 3cm,clip,width=0.6\linewidth]{defocusNicholsLTF.png}
+%    \caption{Nichols plot of focus mode versus damping $\zeta$.}
+%    \label{fig:11}
+% \end{figure}
 
 \clearpage
 
@@ -313,7 +313,7 @@ The dimensions of the model in terms of
    \item science exposure: $10^3$s
 \end{itemize}
 leads to a dynamic model with millions of iterations where thousands of parameters are updated at each time step.
-The model must also account for the multirate e.g.
+The model must also account for the multirate
 \begin{itemize}
    \item 8kHz for structural model \& ASMS
    \item 100Hz for M1 control system
